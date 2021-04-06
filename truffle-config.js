@@ -24,7 +24,7 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 // const fs = require("fs");
 // const mnemonic = fs.readFileSync(".envrc").toString().trim();
 const mnemonicPhrase = process.env.MNEMONIC;
-
+const INFURA_PROJECT_ID = process.env.INFURA_PROJECT_ID;
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -61,13 +61,11 @@ module.exports = {
     // NB: It's important to wrap the provider as a function.
     ropsten: {
       provider: () => {
-        new HDWalletProvider({
+        return new HDWalletProvider({
           mnemonic: {
             phrase: mnemonicPhrase
           },
-          providerOrUrl:
-            `https://ropsten.infura.io/v3/` + process.env.INFURA_PROJECT_ID
-
+          providerOrUrl: `https://ropsten.infura.io/v3/` + INFURA_PROJECT_ID
           // gas: 5500000 // Ropsten has a lower block limit than mainnet
           // confirmations: 2, // # of confs to wait between deployments. (default: 0)
           // timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
