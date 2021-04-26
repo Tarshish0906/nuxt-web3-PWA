@@ -25,6 +25,7 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 // const mnemonic = fs.readFileSync(".envrc").toString().trim();
 const mnemonicPhrase = process.env.MNEMONIC;
 const INFURA_PROJECT_ID = process.env.INFURA_PROJECT_ID;
+const Private = process.env.PRIVATE;
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -47,6 +48,11 @@ module.exports = {
       host: "127.0.0.1", // Localhost (default: none)
       port: 7545, // Standard Ethereum port (default: none)
       network_id: "*" // Any network (default: none)
+    },
+    private: {
+      provider: new HDWalletProvider(mnemonicPhrase, Private, 0),
+      network_id: "*",
+      gasPrice: 0
     },
     // Another network with more advanced options...
     // advanced: {
