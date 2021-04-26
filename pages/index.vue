@@ -3,7 +3,11 @@
     <div>
       <Logo />
       <h1 class="title">nuxt-web3</h1>
-      <div class="links">
+      <h2 class="subtitle">My awesome Nuxt.js project</h2>
+      <div class="links" v-if="!isSignedIn">
+        <button @click="signIn()">Sign In</button>
+      </div>
+      <div class="links" v-if="isSignedIn">
         <input type="text" v-model="inputNumber" placeholder="input number" />
         <button @click="setNumber()">
           Set Number to contract
@@ -20,13 +24,17 @@
 </template>
 
 <script>
+import firebase from "firebase";
+
 export default {
   data() {
     return {
       // コントラクトから取得する数値
       number: 0,
       // フォームから入力された数値
-      inputNumber: 0
+      inputNumber: 0,
+      // Firebaseのサインイン
+      isSignedIn: false
     };
   },
   methods: {
@@ -44,9 +52,37 @@ export default {
       let ret = await this.$contract.methods
         .set(this.inputNumber)
         .send({ from: account });
+    },
+    signIn: function() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithRedirect(provider);
     }
   },
   mounted() {
+    if (!firebase.apps.length) {
+      var firebaseConfig = {
+        apiKey: process.env.APIKEY,
+        authDomain: process.env.AUTHDOMAIN
+      };
+      // Firebaseの初期化
+      firebase.initializeApp(firebaseConfig);
+    }
+    // 認証情報の受け取り
+    var self = this;
+    firebase
+      .auth()
+      .getRedirectResult()
+      .then(function(result) {
+        if (result.credential) {
+          let user = result.user;
+          self.isSignIn = true;
+          console.log(user.uid);
+        }
+      })
+      .catch(function(error) {
+        let errorMessage = error.message;
+        console.log(errorMessage);
+      });
     console.log("Current Block Number");
     // その時点でのBlockHeight、つまり承認済みの最新のブロックの番号を返してくれるメソッド
     this.$web3.eth.getBlockNumber().then(console.log);

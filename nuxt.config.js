@@ -1,8 +1,12 @@
 export default {
   // 追記
-  // ssr: false,
+  ssr: false,
   generate: {
     dir: "public"
+  },
+  env: {
+    APIKEY: process.env.APIKEY,
+    AUTHDOMAIN: process.env.AUTHDOMAIN
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
