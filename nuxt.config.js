@@ -39,8 +39,22 @@ export default {
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ["@nuxtjs/pwa"],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
+
+  manifest: {
+    name: "nuxt-web3-pwa",
+    title: "nuxt-web3-pwa",
+    "og:title": "nuxt-web3-pwa",
+    description: "nuxt-web3-pwaのDescription",
+    "og:description": "nuxt-web3-pwaのDescription",
+    lang: "ja",
+    theme_color: "#41b883",
+    background_color: "#ffffff",
+    display: "standalone",
+    scope: "/",
+    start_url: "/"
+  }
 };

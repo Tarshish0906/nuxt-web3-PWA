@@ -9,6 +9,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/pwa": "^3.3.5",
     "@truffle/hdwallet-provider": "1.2.6",
     "core-js": "^3.9.1",
     "ethereumjs-common": "^1.5.2",
