@@ -6,7 +6,8 @@ export default {
   },
   env: {
     APIKEY: process.env.APIKEY,
-    AUTHDOMAIN: process.env.AUTHDOMAIN
+    AUTHDOMAIN: process.env.AUTHDOMAIN,
+    PRIVATE: process.env.PRIVATE || "http://localhost:8545"
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
